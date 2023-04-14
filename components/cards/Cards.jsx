@@ -14,6 +14,7 @@ const CardItem = styled.View`
 
 const Cards = ({ navigation, countries, isLoading, fetchCountries }) => {
   const dispatch = useDispatch()
+
   return (
     <CardsView>
       <FlatList

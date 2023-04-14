@@ -57,7 +57,7 @@ const Home = ({ navigation }) => {
           left: 50,
         }}
       >
-        <Button title="Избранные страны" />
+        <Button title="Избранные страны" onPress={() => navigation.navigate('Favorites')}/>
       </View>
       <StatusBar theme={"auto"} />
     </GlobalWrap>

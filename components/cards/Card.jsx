@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import styled from 'styled-components/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const CardView = styled.View`
   border-width: 1px;
@@ -38,7 +39,44 @@ const CardFavoriteBtn = styled.Button`
 
 `
 
-const Card = ({flag, name, population, area, iid, languages}) => {
+const Card = ({
+  flag,
+  name,
+  population,
+  area,
+  iid,
+  languages
+}) => {
+  const [isInFavoriveList, setIsInFavoriveList] = React.useState(false)
+
+  const addToFavoriteList = async (country) => {
+    try {
+      await AsyncStorage.setItem(country.name, JSON.stringify(country))
+      alreadyInFavoriteList(country.name)
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
+  const alreadyInFavoriteList = async (name) => {
+    
+    try {
+      const item = await AsyncStorage.getItem(name)
+
+      if(item) {
+        setIsInFavoriveList(true)
+      } else {
+        setIsInFavoriveList(false)
+      }
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
+  React.useEffect(() => {
+    alreadyInFavoriteList(name)
+  }, [isInFavoriveList])
+
   return (
     <CardView>
       <CardFlagImage source={{ uri: flag }} />
@@ -65,15 +103,26 @@ const Card = ({flag, name, population, area, iid, languages}) => {
 
         <CardDescItem>
           <CardDescName>Языки:</CardDescName>
-          <CardDescText>
-            {Object.values(languages).join(', ')}
-          </CardDescText>
+          <CardDescText>{Object.values(languages).join(", ")}</CardDescText>
         </CardDescItem>
       </CardDescBlock>
 
-      <CardFavoriteBtn title="Добавить в избранное" />
+      <CardFavoriteBtn
+        title={isInFavoriveList ? "Уже в избранном" : "Добавить в избранное"}
+        disabled={isInFavoriveList}
+        onPress={() =>
+          addToFavoriteList({
+            flag,
+            name,
+            population,
+            area,
+            languages,
+            iid,
+          })
+        }
+      />
     </CardView>
   );
-}
+};
 
 export default Card
