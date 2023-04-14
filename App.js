@@ -1,6 +1,7 @@
 import { StatusBar, Text, View } from 'react-native';
 import styled from 'styled-components/native'
 import Home from './screens/Home';
+import Details from './screens/Details';
 
 const GlobalWrap = styled.View`
   padding: 15px;
@@ -9,7 +10,8 @@ const GlobalWrap = styled.View`
 export default function App() {
   return (
     <GlobalWrap>
-      <Home/>
+      {/* <Home/> */}
+      <Details/>
       <StatusBar theme={'auto'}/>
     </GlobalWrap>
   );
