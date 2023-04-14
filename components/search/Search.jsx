@@ -34,6 +34,7 @@ const Search = () => {
       return;
     }
     dispatch(fetchCountriesByName(value))
+    setValue('')
   }
   
 
