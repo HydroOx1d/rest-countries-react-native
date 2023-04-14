@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 import styled from 'styled-components/native'
 import Card from './Card'
@@ -11,17 +11,20 @@ const CardItem = styled.View`
   margin-bottom: 20px;
 `
 
-const Cards = () => {
+const Cards = ({ navigation }) => {
   return (
     <CardsView>
-      <CardItem>
-        <Card />
-      </CardItem>
-      <CardItem>
-        <Card />
-      </CardItem> 
+      <TouchableWithoutFeedback
+        onPress={() => {
+          navigation.navigate("Details");
+        }}
+      >
+        <CardItem>
+          <Card />
+        </CardItem>
+      </TouchableWithoutFeedback>
     </CardsView>
   );
-}
+};
 
 export default Cards

@@ -1,12 +1,18 @@
-import { View, Text, ScrollView, Animated, Button } from 'react-native'
+import { View, Text, ScrollView, Animated, Button, StatusBar } from 'react-native'
 import React from 'react'
+import styled from 'styled-components'
+
 import Header from '../components/header/Header'
 import Search from '../components/search/Search'
 import Cards from '../components/cards/Cards'
 
-const Home = () => {
+const GlobalWrap = styled.View`
+  padding: 15px;
+`;
+
+const Home = ({ navigation }) => {
   return (
-    <View>
+    <GlobalWrap>
       <ScrollView
         showsVerticalScrollIndicator={false}
       >
@@ -23,13 +29,14 @@ const Home = () => {
             marginTop: 40,
           }}
         >
-          <Cards />
+          <Cards navigation={navigation} />
         </View>
       </ScrollView>
       <Animated.View style={{ position: "absolute", bottom: 50, left: 20 }}>
-        <Button title="Избранное"/>
+        <Button title="Избранное" />
       </Animated.View>
-    </View>
+      <StatusBar theme={"auto"} />
+    </GlobalWrap>
   );
 }
 
