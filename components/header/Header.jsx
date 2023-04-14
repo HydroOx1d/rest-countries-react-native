@@ -3,7 +3,8 @@ import React from 'react'
 import styled from 'styled-components/native'
 
 const HeaderView = styled.View`
-
+  margin-left: -5px;
+  margin-right: -5px;
 `
 
 const HeaderItem = styled.Text`
@@ -16,7 +17,7 @@ const HeaderItem = styled.Text`
 
 const Header = () => {
   const [activeRegion, setActiveRegion] = React.useState({});
-  
+
   const regions = [
     {
       name: "Азия",
@@ -40,11 +41,15 @@ const Header = () => {
     }
   ];
 
+  const onSetActiveRegion = (region) => {
+    setActiveRegion(region);
+  }
+
   return (
     <HeaderView>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {regions.map((region) => (
-          <TouchableOpacity key={region.region}>
+          <TouchableOpacity key={region.region} onPress={() => onSetActiveRegion(region)}>
             <HeaderItem>{region.name}</HeaderItem>
           </TouchableOpacity>
         ))}
