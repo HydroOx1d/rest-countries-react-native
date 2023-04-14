@@ -21,17 +21,17 @@ const CardDescBlock = styled.View`
 const CardDescItem = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-top: 5px;
+  margin-top: 10px;
 `
 
 const CardDescName = styled.Text`
-  font-size: 20px;
+  font-size: 14px;
 `
 
 const CardDescText = styled.Text`
   flex: 1;
   margin-left: 15px;
-  font-size: 20px;
+  font-size: 14px;
 `
 
 const CardFavoriteBtn = styled.Button`

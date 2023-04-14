@@ -23,14 +23,14 @@ const Cards = ({ navigation, countries, isLoading, fetchCountries }) => {
         renderItem={({item}) => {
           return (
             <TouchableWithoutFeedback
-              key={item.name.common}
+              key={item.translations.rus.common}
               onPress={() => {
                 navigation.navigate("Details");
               }}
             >
               <CardItem>
                 <Card
-                  name={item.name.common}
+                  name={item.translations.rus.official}
                   area={item.area}
                   population={item.population}
                   flag={item.flags.png}
