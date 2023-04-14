@@ -1,6 +1,7 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styled from 'styled-components/native';
+import { getCountryByAlphaCode } from '../../api';
 
 const FullCardView = styled.View`
   
@@ -36,39 +37,86 @@ const CardDescText = styled.Text`
   font-size: 20px;
 `;
 
-const FullCard = () => {
+const CardCountryBorders = styled.View`
+  
+`
+
+const CardCountryBorderTitle = styled.Text`
+  font-size: 20px;
+  margin-bottom: 15px;
+`
+
+const CardCountryBorderItem = styled.Text`
+  color: #0000EE;
+  font-size: 18px;
+  margin-bottom: 10px;
+`;
+
+const FullCard = ({ country, navigation }) => {
+  const [bordersCountry, setBordersCountry] = React.useState([])
+
+  const getBorderCountry = (borderCountry) => {
+    if(borderCountry.length <= 0) {
+      return;
+    }
+
+    const fetchBorderCountry = borderCountry.map(border => getCountryByAlphaCode(border))
+    
+    Promise.all(fetchBorderCountry).then((countries) =>
+      setBordersCountry(countries)
+    );
+  }
+
+  React.useEffect(() => {
+    getBorderCountry(country.borders)
+  })
+
   return (
     <FullCardView>
-      <FullCardImage source={{ uri: "https://flagcdn.com/w320/kg.png" }} />
+      <FullCardImage source={{ uri: country.flags.png }} />
 
       <CardDescBlock>
         <CardDescItem>
           <CardDescName>Название:</CardDescName>
-          <CardDescText>Kyrgystan</CardDescText>
+          <CardDescText>{country.translations.rus.official}</CardDescText>
         </CardDescItem>
 
         <CardDescItem>
           <CardDescName>Население:</CardDescName>
-          <CardDescText>1231231</CardDescText>
+          <CardDescText>{country.population} чел.</CardDescText>
         </CardDescItem>
 
         <CardDescItem>
           <CardDescName>Площадь:</CardDescName>
-          <CardDescText>123123</CardDescText>
+          <CardDescText>{country.area} км2</CardDescText>
         </CardDescItem>
 
         <CardDescItem>
           <CardDescName>Код страны:</CardDescName>
-          <CardDescText>+9</CardDescText>
+          <CardDescText>{country.idd.root}</CardDescText>
         </CardDescItem>
 
         <CardDescItem>
           <CardDescName>Языки:</CardDescName>
           <CardDescText>
-            русский, кыргызский, кыргызский, кыргызский
+            {Object.values(country.languages).join(", ")}
           </CardDescText>
         </CardDescItem>
       </CardDescBlock>
+
+      <CardCountryBorders>
+        <CardCountryBorderTitle>Соседние страны</CardCountryBorderTitle>
+        {bordersCountry.length > 0 ? bordersCountry.map((border) => (
+          <TouchableOpacity
+            key={border.translations.rus.common}
+            onPress={() => navigation.navigate("Details", border)}
+          >
+            <CardCountryBorderItem>
+              {border.translations.rus.official}
+            </CardCountryBorderItem>
+          </TouchableOpacity>
+        )) : (<Text>Нет соседей</Text>)}
+      </CardCountryBorders>
     </FullCardView>
   );
 }

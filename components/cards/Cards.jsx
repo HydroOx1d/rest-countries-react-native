@@ -25,7 +25,7 @@ const Cards = ({ navigation, countries, isLoading, fetchCountries }) => {
             <TouchableWithoutFeedback
               key={item.translations.rus.common}
               onPress={() => {
-                navigation.navigate("Details");
+                navigation.navigate("Details", item);
               }}
             >
               <CardItem>

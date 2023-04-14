@@ -40,3 +40,14 @@ export const getCountryByName = async (name) => {
     throw new Error('error while trying to get a country')
   }
 }
+
+export const getCountryByAlphaCode = async (alphaCode) => {
+  try {
+    const res = await instance.get('/alpha/' + alphaCode)
+
+    return res.data
+  } catch(err) {
+    console.log(err)
+    throw new Error('error while trying to get a country by alpha code')
+  }
+}
