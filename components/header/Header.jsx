@@ -1,6 +1,8 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styled from 'styled-components/native'
+import { useDispatch } from 'react-redux'
+import { fetchCountriesByRegion } from '../../store/slices/countrySlice'
 
 const HeaderView = styled.View`
   margin-left: -5px;
@@ -16,8 +18,6 @@ const HeaderItem = styled.Text`
 `
 
 const Header = () => {
-  const [activeRegion, setActiveRegion] = React.useState({});
-
   const regions = [
     {
       name: "Азия",
@@ -41,15 +41,17 @@ const Header = () => {
     }
   ];
 
+  const dispatch = useDispatch()
+
   const onSetActiveRegion = (region) => {
-    setActiveRegion(region);
+    dispatch(fetchCountriesByRegion(region));
   }
 
   return (
     <HeaderView>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {regions.map((region) => (
-          <TouchableOpacity key={region.region} onPress={() => onSetActiveRegion(region)}>
+          <TouchableOpacity key={region.region} onPress={() => onSetActiveRegion(region.region)}>
             <HeaderItem>{region.name}</HeaderItem>
           </TouchableOpacity>
         ))}

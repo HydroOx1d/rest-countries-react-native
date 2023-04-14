@@ -1,10 +1,16 @@
 import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import { getAllCountry } from '../../api/index'
+import { getAllCountry, getAllCountryByRegion } from '../../api/index'
 
 export const fetchCountries = createAsyncThunk('countries/fetchCountries', async (_, {dispatch}) => {
   const data = await getAllCountry();
 
   dispatch(setCountries(data))
+})
+
+export const fetchCountriesByRegion = createAsyncThunk('countries/fetchCountriesByRegion', async (region, {dispatch}) => {
+  const data = await getAllCountryByRegion(region);
+
+  dispatch(setCountriesByRegion(data))
 })
 
 const initialState = {
@@ -19,6 +25,10 @@ const CountrySlice = createSlice({
   reducers: {
     setCountries: (state, action) => {
       state.data = [...action.payload]
+    },
+
+    setCountriesByRegion: (state, action) => {
+      state.data = [...action.payload]
     }
   },
   
@@ -30,9 +40,17 @@ const CountrySlice = createSlice({
     builder.addCase(fetchCountries.fulfilled, (state) => {
       state.isLoading = false
     })
+
+    builder.addCase(fetchCountriesByRegion.pending, (state) => {
+      state.isLoading = true
+    })
+
+    builder.addCase(fetchCountriesByRegion.fulfilled, (state) => {
+      state.isLoading = false
+    })
   }
 })
 
-const { setCountries } = CountrySlice.actions
+const { setCountries, setCountriesByRegion } = CountrySlice.actions
 
 export const countryReducer = CountrySlice.reducer
