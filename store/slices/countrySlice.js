@@ -52,6 +52,11 @@ const CountrySlice = createSlice({
       state.isLoading = false
     })
 
+    builder.addCase(fetchCountries.rejected, (state) => {
+      state.isLoading = false
+      state.data = []
+    })
+
     // fetch all countries by region
     builder.addCase(fetchCountriesByRegion.pending, (state) => {
       state.isLoading = true
@@ -59,6 +64,11 @@ const CountrySlice = createSlice({
 
     builder.addCase(fetchCountriesByRegion.fulfilled, (state) => {
       state.isLoading = false
+    })
+
+    builder.addCase(fetchCountriesByRegion.rejected, (state) => {
+      state.isLoading = false
+      state.data = []
     })
 
     // fetch countries by name
@@ -69,6 +79,11 @@ const CountrySlice = createSlice({
 
     builder.addCase(fetchCountriesByName.fulfilled, (state) => {
       state.isLoading = false
+    })
+
+    builder.addCase(fetchCountriesByName.rejected, (state) => {
+      state.isLoading = false
+      state.data = []
     })
   }
 })

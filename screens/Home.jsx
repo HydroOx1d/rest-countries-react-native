@@ -1,4 +1,4 @@
-import { View, ScrollView, Animated, Button, StatusBar, ActivityIndicator, RefreshControl } from 'react-native'
+import { View, Text, Button, StatusBar, ActivityIndicator } from 'react-native'
 import React from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
@@ -22,20 +22,6 @@ const Home = ({ navigation }) => {
     dispatch(fetchCountries())
   }, [])
 
-  if(isLoading) {
-    return (
-      <GlobalWrap>
-        <View style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <ActivityIndicator size={"large"} />
-        </View>
-      </GlobalWrap>
-    );
-  }
-
   return (
     <GlobalWrap>
       <Header />
@@ -51,13 +37,26 @@ const Home = ({ navigation }) => {
           marginTop: 40,
         }}
       >
-        <Cards countries={data} navigation={navigation} isLoading={isLoading} fetchCountries={fetchCountries}/>
+        {isLoading ? (
+          <ActivityIndicator size={"large"} />
+        ) : data.length <= 0 ? (
+          <Text>Ничего не найдено</Text>
+        ) : (
+          <Cards
+            countries={data}
+            navigation={navigation}
+            isLoading={isLoading}
+            fetchCountries={fetchCountries}
+          />
+        )}
       </View>
-      <View style={{
-        position: 'absolute',
-        bottom: 50,
-        left: 50
-      }}>
+      <View
+        style={{
+          position: "absolute",
+          bottom: 50,
+          left: 50,
+        }}
+      >
         <Button title="Избранные страны" />
       </View>
       <StatusBar theme={"auto"} />
