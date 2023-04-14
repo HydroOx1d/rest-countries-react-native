@@ -38,40 +38,40 @@ const CardFavoriteBtn = styled.Button`
 
 `
 
-const Card = () => {
+const Card = ({flag, name, population, area, iid, languages}) => {
   return (
     <CardView>
-      <CardFlagImage source={{ uri: "https://flagcdn.com/w320/kg.png" }} />
+      <CardFlagImage source={{ uri: flag }} />
       <CardDescBlock>
         <CardDescItem>
           <CardDescName>Название:</CardDescName>
-          <CardDescText>Kyrgystan</CardDescText>
+          <CardDescText>{name || "Неизвестно"}</CardDescText>
         </CardDescItem>
 
         <CardDescItem>
           <CardDescName>Население:</CardDescName>
-          <CardDescText>1231231</CardDescText>
+          <CardDescText>{population || "Неизвестно"} чел.</CardDescText>
         </CardDescItem>
 
         <CardDescItem>
           <CardDescName>Площадь:</CardDescName>
-          <CardDescText>123123</CardDescText>
+          <CardDescText>{area || "Неизвестно"} км2</CardDescText>
         </CardDescItem>
 
         <CardDescItem>
           <CardDescName>Код страны:</CardDescName>
-          <CardDescText>+9</CardDescText>
+          <CardDescText>{iid?.root || "Неизвестно"}</CardDescText>
         </CardDescItem>
 
         <CardDescItem>
           <CardDescName>Языки:</CardDescName>
           <CardDescText>
-            русский, кыргызский, кыргызский, кыргызский
+            {Object.values(languages).join(', ')}
           </CardDescText>
         </CardDescItem>
       </CardDescBlock>
 
-      <CardFavoriteBtn title="Добавить в избранное"/>
+      <CardFavoriteBtn title="Добавить в избранное" />
     </CardView>
   );
 }
