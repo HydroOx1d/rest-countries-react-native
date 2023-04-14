@@ -25,9 +25,15 @@ const Home = ({ navigation }) => {
   if(isLoading) {
     return (
       <GlobalWrap>
-        <ActivityIndicator size={'large'}/>
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <ActivityIndicator size={"large"} />
+        </View>
       </GlobalWrap>
-    )
+    );
   }
 
   return (
