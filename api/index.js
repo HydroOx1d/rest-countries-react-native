@@ -29,3 +29,14 @@ export const getAllCountryByRegion = async (region) => {
     throw new Error('error while trying to get a list of countries')
   }
 }
+
+export const getCountryByName = async (name) => {
+  try { 
+    const res = await instance.get('/name/' + name)
+
+    return res.data
+  } catch(err) {
+    console.log(err)
+    throw new Error('error while trying to get a country')
+  }
+}

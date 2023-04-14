@@ -1,6 +1,8 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styled from 'styled-components/native';
+import { useDispatch } from 'react-redux';
+import { fetchCountriesByName } from '../../store/slices/countrySlice';
 
 const SearchView = styled.View`
   flex-direction: row;
@@ -24,6 +26,12 @@ const SearchButton = styled.Text`
 
 const Search = () => {
   const [value, setValue] = React.useState("")
+  const dispatch = useDispatch()
+
+  const onSearch = () => {
+    dispatch(fetchCountriesByName(value))
+  }
+  
 
   return (
     <SearchView>
@@ -35,7 +43,7 @@ const Search = () => {
       <TouchableOpacity style={{
         flex: 1,
         width: 100
-      }}>
+      }} onPress={onSearch}>
         <SearchButton>Поиск</SearchButton>
       </TouchableOpacity>
     </SearchView>

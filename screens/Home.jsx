@@ -10,6 +10,7 @@ import { fetchCountries } from '../store/slices/countrySlice'
 
 const GlobalWrap = styled.View`
   padding: 15px;
+  height: 100%;
 `;
 
 const Home = ({ navigation }) => {
@@ -48,10 +49,10 @@ const Home = ({ navigation }) => {
       </View>
       <View style={{
         position: 'absolute',
-        bottom: 150,
+        bottom: 50,
         left: 50
       }}>
-        <Button title="Избранное" />
+        <Button title="Избранные страны" />
       </View>
       <StatusBar theme={"auto"} />
     </GlobalWrap>
