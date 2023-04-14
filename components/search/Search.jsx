@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styled from 'styled-components/native';
 import { useDispatch } from 'react-redux';
-import { fetchCountriesByName } from '../../store/slices/countrySlice';
+import { fetchCountries, fetchCountriesByName } from '../../store/slices/countrySlice';
 
 const SearchView = styled.View`
   flex-direction: row;
@@ -29,6 +29,10 @@ const Search = () => {
   const dispatch = useDispatch()
 
   const onSearch = () => {
+    if(value.length <= 0) {
+      dispatch(fetchCountries());
+      return;
+    }
     dispatch(fetchCountriesByName(value))
   }
   
