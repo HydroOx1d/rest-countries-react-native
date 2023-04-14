@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+cimport { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styled from 'styled-components/native';
 import { getCountryByAlphaCode } from '../../api';
@@ -106,30 +106,16 @@ const FullCard = ({ country, navigation }) => {
 
       <CardCountryBorders>
         <CardCountryBorderTitle>Соседние страны</CardCountryBorderTitle>
-        {bordersCountry.length > 0 ? (
-          bordersCountry.map((border) => (
-            <TouchableOpacity
-              key={border.translations.rus.common}
-              onPress={() =>
-                navigation.navigate("Details", {
-                  name: border.translations.rus.official,
-                  flag: border.flags.png,
-                  population: border.population,
-                  area: border.area,
-                  languages: border.languages,
-                  idd: border.idd,
-                  borders: border.borders,
-                })
-              }
-            >
-              <CardCountryBorderItem>
-                {border.translations.rus.official}
-              </CardCountryBorderItem>
-            </TouchableOpacity>
-          ))
-        ) : (
-          <Text>Нет соседей</Text>
-        )}
+        {bordersCountry.length > 0 ? bordersCountry.map((border) => (
+          <TouchableOpacity
+            key={border.translations.rus.common}
+            onPress={() => navigation.navigate("Details", border)}
+          >
+            <CardCountryBorderItem>
+              {border.translations.rus.official}
+            </CardCountryBorderItem>
+          </TouchableOpacity>
+        )) : (<Text>Нет соседей</Text>)}
       </CardCountryBorders>
     </FullCardView>
   );

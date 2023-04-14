@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React, { useEffect } from 'react'
 import FullCard from '../components/cards/FullCard'
 import styled from 'styled-components'
@@ -12,15 +12,28 @@ const Details = ({ route, navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({
-      title: country.translations.rus.official
+      title: country.name
     })
   })
 
   return (
     <GlobalWrap>
-      <FullCard country={country} navigation={navigation}/>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <FullCard
+          country={{
+            name: country.name,
+            flag: country.flag,
+            population: country.population,
+            area: country.area,
+            languages: country.languages,
+            idd: country.idd,
+            borders: country.borders,
+          }}
+          navigation={navigation}
+        />
+      </ScrollView>
     </GlobalWrap>
-  )
+  );
 }
 
 export default Details

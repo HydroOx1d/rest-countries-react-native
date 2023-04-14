@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Button } from 'react-native'
+import { View, Text, FlatList, Button, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import styled from 'styled-components/native'
@@ -36,7 +36,7 @@ const CardDescText = styled.Text`
   font-size: 14px;
 `
 
-const Favorites = () => {
+const Favorites = ({ navigation }) => {
   const [countries, setCountries] = React.useState([])
 
   const getCountriesFromStorage = async () => {
@@ -89,41 +89,48 @@ const Favorites = () => {
         data={countries}
         renderItem={({item}) => {
           return (
-            <CardView key={item.name}>
-              <CardFlagImage source={{ uri: item.flag }} />
-              <CardDescBlock>
-                <CardDescItem>
-                  <CardDescName>Название:</CardDescName>
-                  <CardDescText>{item.name || "Неизвестно"}</CardDescText>
-                </CardDescItem>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('Details', item)}>
+              <CardView key={item.name}>
+                <CardFlagImage source={{ uri: item.flag }} />
+                <CardDescBlock>
+                  <CardDescItem>
+                    <CardDescName>Название:</CardDescName>
+                    <CardDescText>{item.name || "Неизвестно"}</CardDescText>
+                  </CardDescItem>
 
-                <CardDescItem>
-                  <CardDescName>Население:</CardDescName>
-                  <CardDescText>
-                    {item.population || "Неизвестно"} чел.
-                  </CardDescText>
-                </CardDescItem>
+                  <CardDescItem>
+                    <CardDescName>Население:</CardDescName>
+                    <CardDescText>
+                      {item.population || "Неизвестно"} чел.
+                    </CardDescText>
+                  </CardDescItem>
 
-                <CardDescItem>
-                  <CardDescName>Площадь:</CardDescName>
-                  <CardDescText>{item.area || "Неизвестно"} км2</CardDescText>
-                </CardDescItem>
+                  <CardDescItem>
+                    <CardDescName>Площадь:</CardDescName>
+                    <CardDescText>{item.area || "Неизвестно"} км2</CardDescText>
+                  </CardDescItem>
 
-                <CardDescItem>
-                  <CardDescName>Код страны:</CardDescName>
-                  <CardDescText>{item.iid?.root || "Неизвестно"}</CardDescText>
-                </CardDescItem>
+                  <CardDescItem>
+                    <CardDescName>Код страны:</CardDescName>
+                    <CardDescText>
+                      {item.idd?.root || "Неизвестно"}
+                    </CardDescText>
+                  </CardDescItem>
 
-                <CardDescItem>
-                  <CardDescName>Языки:</CardDescName>
-                  <CardDescText>
-                    {Object.values(item.languages).join(", ")}
-                  </CardDescText>
-                </CardDescItem>
-              </CardDescBlock>
+                  <CardDescItem>
+                    <CardDescName>Языки:</CardDescName>
+                    <CardDescText>
+                      {Object.values(item.languages).join(", ")}
+                    </CardDescText>
+                  </CardDescItem>
+                </CardDescBlock>
 
-              <Button title="Удалить" onPress={() => deleteCountry(item.name)}/>
-            </CardView>
+                <Button
+                  title="Удалить"
+                  onPress={() => deleteCountry(item.name)}
+                />
+              </CardView>
+            </TouchableWithoutFeedback>
           );
         }}
       />

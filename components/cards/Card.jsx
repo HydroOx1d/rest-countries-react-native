@@ -44,8 +44,9 @@ const Card = ({
   name,
   population,
   area,
-  iid,
-  languages
+  idd,
+  languages,
+  borders
 }) => {
   const [isInFavoriveList, setIsInFavoriveList] = React.useState(false)
 
@@ -98,7 +99,7 @@ const Card = ({
 
         <CardDescItem>
           <CardDescName>Код страны:</CardDescName>
-          <CardDescText>{iid?.root || "Неизвестно"}</CardDescText>
+          <CardDescText>{idd?.root || "Неизвестно"}</CardDescText>
         </CardDescItem>
 
         <CardDescItem>
@@ -117,7 +118,8 @@ const Card = ({
             population,
             area,
             languages,
-            iid,
+            idd,
+            borders
           })
         }
       />

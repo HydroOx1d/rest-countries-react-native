@@ -26,7 +26,15 @@ const Cards = ({ navigation, countries, isLoading, fetchCountries }) => {
             <TouchableWithoutFeedback
               key={item.translations.rus.common}
               onPress={() => {
-                navigation.navigate("Details", item);
+                navigation.navigate("Details", {
+                  name: item.translations.rus.official,
+                  flag: item.flags.png,
+                  population: item.population,
+                  area: item.area,
+                  languages: item.languages,
+                  idd: item.idd,
+                  borders: item.borders,
+                });
               }}
             >
               <CardItem>
@@ -35,7 +43,7 @@ const Cards = ({ navigation, countries, isLoading, fetchCountries }) => {
                   area={item.area}
                   population={item.population}
                   flag={item.flags.png}
-                  iid={item.idd}
+                  idd={item.idd}
                   languages={item.languages}
                   borders={item.borders}
                 />
